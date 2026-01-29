@@ -1,4 +1,4 @@
-This repository contains the implementation and associated testing code for a Pentium 4 ADDER and a Register File with Windowing, together with the `LaTeX` code used for the technical report. Both P4_ADDER and RF_WINDOWING are designed using VHDL for implementation.
+This repository contains the implementation and testbench architecture for a Pentium 4 Adder and a Register-File with Windowing feature, together with the `LaTeX` code used for the technical report. Both P4_ADDER and RF_WINDOWING are designed using VHDL for implementation.
 
 # P4_ADDER Implementation and Testing
 
