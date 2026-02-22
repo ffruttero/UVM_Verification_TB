@@ -33,7 +33,7 @@ package rf_pkg;
     `include "coverage.svh" // Coverage agent
 
     // Include file for the test environment
-    `include "tester_env.svh" // Test environment
+    `include "environment.svh" // Test environment
 
     // Include files for tests
     `include "verbose_test.svh" // Verbose test

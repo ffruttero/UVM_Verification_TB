@@ -8,7 +8,7 @@
 class verbose_test extends uvm_test;
    `uvm_component_utils(verbose_test) // Macros to register the class for factory creation
       
-   tester_env t_env; // The test environment
+   environment t_env; // The test environment
    
    function new(string name, uvm_component parent); // Component constructor 
       super.new(name, parent);
@@ -17,7 +17,7 @@ class verbose_test extends uvm_test;
    function void build();
       super.build();
       rf_pkg::verbose = 1; // Set the verbose flag to 1
-      t_env = tester_env::type_id::create("t_env", this); // Create the test environment
+      t_env = environment::type_id::create("t_env", this); // Create the test environment
    endfunction : build
 
    function void end_of_elaboration();
