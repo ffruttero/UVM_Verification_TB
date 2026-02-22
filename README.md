@@ -43,8 +43,9 @@ This directory contains scripts to compile, simulate, and generate coverage repo
 - `run.do`: run.do - The simulation script for QuestaSim compiles and runs the testbench, showcasing the integration of the testbench components and the execution of UVM-based tests.
 - `compile_sv.do`: A script to compile the necessary files for simulation.
 
-<br>
 # RF WINDOWING Implementation and Testing
+## Schematic:
+![alt text](rf_windowing/image.png)
 ## Directory Structure
 
 As well as the P4 ADDER, the RF is organized into the following main directories:
@@ -52,8 +53,7 @@ As well as the P4 ADDER, the RF is organized into the following main directories
 - `tb/`: Contains the UVM testbench 
 - `sim/`: Contains the simulation scripts and after simulation, the coverage reports.
 
-<br>
-## RF VERIFICATION TESTBENCH (/tb)
+## RF UVM TESTBENCH ARCHITECTURE (/tb)
 This directory contains the SystemVerilog files needed for UVM verification of the Register File.
 
 ##### RF INTERFACE (tb/rf_if.sv): 
