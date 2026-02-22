@@ -25,10 +25,9 @@ package rf_pkg;
 
     // Include files for agents
     `include "interface_base.svh" // Base interface
-    `include "responder.svh" // Responder agent
     `include "driver.svh" // Driver agent
     `include "predictor.svh" // Predictor agent
-    `include "comparator.svh" // Comparator agent
+    `include "scoreboard.svh" // scoreboard agent
     `include "monitor.svh" // Monitor agent
     `include "printer.svh" // Printer agent
     `include "coverage.svh" // Coverage agent

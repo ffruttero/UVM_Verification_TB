@@ -1,16 +1,16 @@
 // ----------------------------------------------------------------------------
-// Title: Comparator
+// Title: scoreboard
 // Author: Federico Fruttero
 // Affiliation: Politecnico di Torino
 // Description: This file defines a UVM agent class for comparing actual and 
-// predicted memory operations in the Register File (RF) simulation. The comparator 
+// predicted memory operations in the Register File (RF) simulation. The scoreboard 
 // receives actual responses from the DUT and predicted responses from the predictor. 
 // It compares these responses and reports any discrepancies.
 // ----------------------------------------------------------------------------
 
-class comparator extends uvm_agent;
+class scoreboard extends uvm_agent;
 
-   `uvm_component_utils(comparator)
+   `uvm_component_utils(scoreboard)
 
    // Declare analysis FIFOs for actual and predicted responses
    uvm_tlm_analysis_fifo #(rf_data) actual_f; // FIFO for actual responses from the DUT
@@ -23,7 +23,7 @@ class comparator extends uvm_agent;
        super.new(name,parent);
    endfunction: new
 
-   // Build phase of the comparator
+   // Build phase of the scoreboard
    function void build_phase(uvm_phase phase);
        super.build_phase(phase);
        
@@ -34,7 +34,7 @@ class comparator extends uvm_agent;
        predicted_p = new("predicted_p", this); 
    endfunction: build_phase
 
-   // Run phase of the comparator
+   // Run phase of the scoreboard
    task run_phase(uvm_phase phase); 
        forever begin : run_loop
            // Get actual response from actual FIFO
@@ -53,4 +53,4 @@ class comparator extends uvm_agent;
        end : run_loop;
    endtask: run_phase
 
-endclass: comparator
+endclass: scoreboard

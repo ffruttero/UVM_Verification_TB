@@ -4,7 +4,7 @@
 // Affiliation: Politecnico di Torino
 // Description: This file defines the environment for the testbench. It includes
 //              the setup and connections of various components like the test
-//              sequence, driver, monitor, predictor, comparator, and printers.
+//              sequence, driver, monitor, predictor, scoreboard, and printers.
 // ----------------------------------------------------------------------------
 
 class tester_env extends uvm_env;
@@ -25,13 +25,13 @@ class tester_env extends uvm_env;
    printer   #(rf_req)  req_prt; // Printer for request transactions
    // printer   #(rf_data) rsp_prt; // Printer for response transactions
 
-   // Declare monitor, predictor, and comparator components
+   // Declare monitor, predictor, and scoreboard components
    monitor      mon;            // The monitor component
    predictor    pred;           // The predictor component
-   comparator   cmp;            // The comparator component
+   scoreboard   cmp;            // The scoreboard component
    
-   // Declare FIFO for connecting predictor and comparator
-   uvm_tlm_fifo #(rf_data) pred2cmp; // TLM FIFO connecting predictor and comparator
+   // Declare FIFO for connecting predictor and scoreboard
+   uvm_tlm_fifo #(rf_data) pred2cmp; // TLM FIFO connecting predictor and scoreboard
 
    // Constructor for the tester_env class
    function new(string name = "tester_env", uvm_component parent = null );
@@ -52,13 +52,13 @@ class tester_env extends uvm_env;
       req_prt = printer#(rf_req)::type_id::create("req_prt",this);
       //rsp_prt = printer#(rf_data)::type_id::create("rsp_prt",this);
 
-      // Create and initialize monitor, predictor, comparator and coverage
+      // Create and initialize monitor, predictor, scoreboard and coverage
       mon = monitor::type_id::create("mon", this);
       cov = coverage::type_id::create("cov", this);
       pred = predictor::type_id::create("pred", this);
-      cmp = comparator::type_id::create("cmp", this);
+      cmp = scoreboard::type_id::create("cmp", this);
       
-      // Create and initialize FIFO for connecting predictor and comparator
+      // Create and initialize FIFO for connecting predictor and scoreboard
       pred2cmp  = new("pred2cmp", this);
    endfunction : build_phase    
 
@@ -71,14 +71,14 @@ class tester_env extends uvm_env;
       //drv.req_f.connect(tester2drv.get_export);   // Connect driver to tester using TLM FIFO
       drv.seq_item_port.connect(seqr.seq_item_export);
 
-      // Connect ports between predictor and comparator
-      cmp.predicted_p.connect(pred2cmp.get_export); // Connect predicted port of comparator to get port of predictor
-      pred.rsp_p.connect(pred2cmp.put_export);       // Connect response port of predictor to put port of comparator
+      // Connect ports between predictor and scoreboard
+      cmp.predicted_p.connect(pred2cmp.get_export); // Connect predicted port of scoreboard to get port of predictor
+      pred.rsp_p.connect(pred2cmp.put_export);       // Connect response port of predictor to put port of scoreboard
       
-      // Connect monitor's request and response analysis exports to predictor and comparator
+      // Connect monitor's request and response analysis exports to predictor and scoreboard
       mon.req_a.connect(pred.req_fifo.analysis_export); // Connect monitor's request analysis port to predictor's FIFO
       mon.req_a.connect(cov.req_fifo.analysis_export);
-      mon.rsp_a.connect(cmp.actual_f.analysis_export);  // Connect monitor's response analysis port to comparator's FIFO
+      mon.rsp_a.connect(cmp.actual_f.analysis_export);  // Connect monitor's response analysis port to scoreboard's FIFO
       
       if (rf_pkg::verbose) begin
           // Connect monitor's analysis ports to printers' analysis exports
